@@ -1,0 +1,30 @@
+GIT
+  remote: git://github.com/rails-api/active_model_serializers.git
+  revision: 0114e492388ff84defcd1afbbb315e547849cb96
+  branch: master
+  specs:
+    active_model_serializers (0.5.2)
+      activemodel (>= 3.0)
+
+GEM
+  remote: http://rubygems.org/
+  specs:
+    activemodel (3.2.12)
+      activesupport (= 3.2.12)
+      builder (~> 3.0.0)
+    activesupport (3.2.12)
+      i18n (~> 0.6)
+      multi_json (~> 1.0)
+    builder (3.0.4)
+    i18n (0.6.1)
+    multi_json (1.5.1)
+    rabl (0.6.10)
+      activesupport (>= 2.3.14)
+      multi_json (~> 1.0)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  active_model_serializers!
+  rabl
