@@ -18,13 +18,14 @@ GEM
     builder (3.0.4)
     i18n (0.6.1)
     multi_json (1.5.1)
-    rabl (0.6.10)
+    oj (2.0.7)
+    rabl (0.8.0)
       activesupport (>= 2.3.14)
-      multi_json (~> 1.0)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
   active_model_serializers!
-  rabl
+  oj (~> 2.0.7)
+  rabl (~> 0.8.0)
