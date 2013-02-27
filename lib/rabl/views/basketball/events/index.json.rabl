@@ -1,0 +1,1 @@
+extends 'basketball/events/show'
