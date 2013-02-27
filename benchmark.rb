@@ -2,6 +2,7 @@ $LOAD_PATH.unshift(File.expand_path(File.join(File.dirname(__FILE__), 'lib')))
 
 require 'benchmark'
 require 'json_serialization_benchmark'
+require 'serializers/basketball/event_serializer'
 
 Benchmark.benchmark(Benchmark::CAPTION, 25) do |b|
   sample_size = 50
@@ -17,7 +18,7 @@ Benchmark.benchmark(Benchmark::CAPTION, 25) do |b|
 
   b.report('ActiveModel Serializer') do
     sample_size.times do
-      # EventSerializer.new(event).to_json
+      Basketball::EventSerializer.new(event).to_json
     end
   end
 end

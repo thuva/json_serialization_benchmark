@@ -9,7 +9,5 @@ require 'models/event_factory'
 require 'models/play_by_play_record'
 require 'models/team'
 
-require 'serializers/init'
-require 'serializers/event_serializer'
-
 require 'rabl/init'
+require 'serializers/init'
