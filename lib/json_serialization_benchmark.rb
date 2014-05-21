@@ -1,6 +1,6 @@
 require File.join(File.dirname(__FILE__), '..', 'config', 'environment')
 
-require 'active_support/core_ext/object/to_json'
+require 'active_support/core_ext/object/json'
 
 require 'models/model'
 require 'models/box_score'
