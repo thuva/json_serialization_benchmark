@@ -11,7 +11,20 @@ require 'presenters/event_summary_presenter'
 require 'presenters/team_presenter'
 require 'presenters/basketball/event_presenter'
 
+require 'oj'
+Oj.mimic_JSON() # this will speedup benchmarks using #to_json
+require 'find'
+require 'api_view/api_view'
+
 module SerializationBenchmark
+
+  # load api_view models
+
+  Find.find(File.expand_path(File.dirname(__FILE__) + '/lib/api_view/views')) do |path|
+    next if not File.file? path
+    require path
+  end
+
   collection_size = 100
   rabl_view_path  = File.expand_path(File.dirname(__FILE__) + '/lib/rabl/views')
 
@@ -43,6 +56,12 @@ module SerializationBenchmark
       end
     end
 
+    b.report('ApiView Ultra Simple') do
+      sample_size.times do
+        ApiView::Engine.render(team, nil, :format => "json")
+      end
+    end
+
     puts '-' * divider_size
 
     b.report('RABL Simple') do
@@ -63,6 +82,12 @@ module SerializationBenchmark
       end
     end
 
+    b.report('ApiView Simple') do
+      sample_size.times do
+        ApiView::Engine.render(event, nil, :format => "json", :use => EventSummaryApiView)
+      end
+    end
+
     puts '-' * divider_size
 
     b.report('RABL Complex') do
@@ -80,6 +105,12 @@ module SerializationBenchmark
     b.report('Presenters Complex') do
       sample_size.times do
         JsonEncoder.dump(Basketball::EventPresenter.new(event).as_json)
+      end
+    end
+
+    b.report('ApiView Complex') do
+      sample_size.times do
+        ApiView::Engine.render(event, nil, :format => "json", :use => BasketballEventApiView)
       end
     end
   end
@@ -113,6 +144,12 @@ module SerializationBenchmark
       end
     end
 
+    b.report('ApiView Ultra Simple: Collection') do
+      sample_size.times do
+        ApiView::Engine.render(team_collection, nil, :format => "json")
+      end
+    end
+
     puts '-' * divider_size
 
     b.report('RABL Simple: Collection') do
@@ -138,6 +175,12 @@ module SerializationBenchmark
       end
     end
 
+    b.report('ApiView Simple: Collection') do
+      sample_size.times do
+        ApiView::Engine.render(event_collection, nil, :format => "json", :use => EventSummaryApiView)
+      end
+    end
+
     puts '-' * divider_size
 
     b.report('RABL Complex: Collection') do
@@ -160,6 +203,12 @@ module SerializationBenchmark
       sample_size.times do
         result = event_collection.map { |event| Basketball::EventPresenter.new(event).as_json }
         JsonEncoder.dump(result)
+      end
+    end
+
+    b.report('ApiView Complex: Collection') do
+      sample_size.times do
+        ApiView::Engine.render(event_collection, nil, :format => "json", :use => BasketballEventApiView)
       end
     end
   end
