@@ -11,6 +11,14 @@ require 'presenters/event_summary_presenter'
 require 'presenters/team_presenter'
 require 'presenters/basketball/event_presenter'
 
+
+# Was not able to figure out how to get this to work without specifying the ActiveSupport::JSON serializer
+# This does not make it a very fair comparison since the rest of the examples are using MultiJson with the Oj serializer.
+# If someone figures out how to make rabl use Oj that would be helpful
+Rabl.configure do |conf|
+  conf.json_engine = ActiveSupport::JSON
+end
+
 module SerializationBenchmark
   collection_size = 100
   rabl_view_path  = File.expand_path(File.dirname(__FILE__) + '/lib/rabl/views')
@@ -22,7 +30,7 @@ module SerializationBenchmark
   team_collection  = collection_size.times.map { team }
 
   Benchmark.benchmark(Benchmark::CAPTION, 40) do |b|
-    sample_size  = 10_000
+    sample_size  = 1000
     divider_size = 86
 
     b.report('RABL Ultra Simple') do
@@ -33,13 +41,13 @@ module SerializationBenchmark
 
     b.report('AMS Ultra Simple') do
       sample_size.times do
-        TeamSerializer.new(team).to_json
+        MultiJson.dump TeamSerializer.new(team)
       end
     end
 
     b.report('Presenters Ultra Simple') do
       sample_size.times do
-        TeamPresenter.new(team).to_json
+        MultiJson.dump TeamPresenter.new(team)
       end
     end
 
@@ -53,13 +61,13 @@ module SerializationBenchmark
 
     b.report('AMS Simple') do
       sample_size.times do
-        EventSummarySerializer.new(event).to_json
+        MultiJson.dump EventSummarySerializer.new(event)
       end
     end
 
     b.report('Presenters Simple') do
       sample_size.times do
-        EventSummaryPresenter.new(event).to_json
+        MultiJson.dump EventSummaryPresenter.new(event)
       end
     end
 
@@ -73,13 +81,13 @@ module SerializationBenchmark
 
     b.report('AMS Complex') do
       sample_size.times do
-        Basketball::EventSerializer.new(event).to_json
+        MultiJson.dump Basketball::EventSerializer.new(event)
       end
     end
 
     b.report('Presenters Complex') do
       sample_size.times do
-        Basketball::EventPresenter.new(event).to_json
+        MultiJson.dump Basketball::EventPresenter.new(event)
       end
     end
   end
@@ -98,13 +106,13 @@ module SerializationBenchmark
 
     b.report('AMS Ultra Simple: Collection') do
       sample_size.times do
-        ActiveModel::ArraySerializer.new(team_collection, each_serializer: TeamSerializer).to_json
+        MultiJson.dump ActiveModel::ArraySerializer.new(team_collection, each_serializer: TeamSerializer)
       end
     end
 
     b.report('Presenters Ultra Simple: Collection') do
       sample_size.times do
-        team_collection.map { |team| TeamPresenter.new(team).as_json }.to_json
+        MultiJson.dump team_collection.map { |team| TeamPresenter.new(team).as_json }
       end
     end
 
@@ -118,13 +126,13 @@ module SerializationBenchmark
 
     b.report('AMS Simple: Collection') do
       sample_size.times do
-        ActiveModel::ArraySerializer.new(event_collection, each_serializer: EventSummarySerializer).to_json
+        MultiJson.dump ActiveModel::ArraySerializer.new(event_collection, each_serializer: EventSummarySerializer)
       end
     end
 
     b.report('Presenters Simple: Collection') do
       sample_size.times do
-        event_collection.map { |event| EventSummaryPresenter.new(event).as_json }.to_json
+        MultiJson.dump event_collection.map { |event| EventSummaryPresenter.new(event).as_json }
       end
     end
 
@@ -138,13 +146,13 @@ module SerializationBenchmark
 
     b.report('AMS Complex: Collection') do
       sample_size.times do
-        ActiveModel::ArraySerializer.new(event_collection, each_serializer: Basketball::EventSerializer).to_json
+        MultiJson.dump ActiveModel::ArraySerializer.new(event_collection, each_serializer: Basketball::EventSerializer)
       end
     end
 
     b.report('Presenters Complex: Collection') do
       sample_size.times do
-        event_collection.map { |event| Basketball::EventPresenter.new(event).as_json }.to_json
+        MultiJson.dump event_collection.map { |event| MultiJson.dump Basketball::EventPresenter.new(event) }
       end
     end
   end
