@@ -20,6 +20,7 @@ GEM
     oj (2.9.3)
     rabl (0.10.0)
       activesupport (>= 2.3.14)
+    ruby-prof (0.15.1)
     thread_safe (0.3.3)
     tzinfo (1.2.0)
       thread_safe (~> 0.1)
@@ -33,3 +34,4 @@ DEPENDENCIES
   multi_json
   oj
   rabl
+  ruby-prof
