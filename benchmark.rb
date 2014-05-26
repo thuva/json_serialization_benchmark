@@ -33,13 +33,13 @@ module SerializationBenchmark
 
     b.report('AMS Ultra Simple') do
       sample_size.times do
-        TeamSerializer.new(team).to_json
+        JsonEncoder.dump(TeamSerializer.new(team).as_json)
       end
     end
 
     b.report('Presenters Ultra Simple') do
       sample_size.times do
-        TeamPresenter.new(team).to_json
+        JsonEncoder.dump(TeamPresenter.new(team).as_json)
       end
     end
 
@@ -53,13 +53,13 @@ module SerializationBenchmark
 
     b.report('AMS Simple') do
       sample_size.times do
-        EventSummarySerializer.new(event).to_json
+        JsonEncoder.dump(EventSummarySerializer.new(event).as_json)
       end
     end
 
     b.report('Presenters Simple') do
       sample_size.times do
-        EventSummaryPresenter.new(event).to_json
+        JsonEncoder.dump(EventSummaryPresenter.new(event).as_json)
       end
     end
 
@@ -73,13 +73,13 @@ module SerializationBenchmark
 
     b.report('AMS Complex') do
       sample_size.times do
-        Basketball::EventSerializer.new(event).to_json
+        JsonEncoder.dump(Basketball::EventSerializer.new(event).as_json)
       end
     end
 
     b.report('Presenters Complex') do
       sample_size.times do
-        Basketball::EventPresenter.new(event).to_json
+        JsonEncoder.dump(Basketball::EventPresenter.new(event).as_json)
       end
     end
   end
@@ -98,13 +98,18 @@ module SerializationBenchmark
 
     b.report('AMS Ultra Simple: Collection') do
       sample_size.times do
-        ActiveModel::ArraySerializer.new(team_collection, each_serializer: TeamSerializer).to_json
+        result = ActiveModel::ArraySerializer.
+          new(team_collection, each_serializer: TeamSerializer).
+          as_json
+
+        JsonEncoder.dump(result)
       end
     end
 
     b.report('Presenters Ultra Simple: Collection') do
       sample_size.times do
-        team_collection.map { |team| TeamPresenter.new(team).as_json }.to_json
+        result = team_collection.map { |team| TeamPresenter.new(team).as_json }
+        JsonEncoder.dump(result)
       end
     end
 
@@ -118,13 +123,18 @@ module SerializationBenchmark
 
     b.report('AMS Simple: Collection') do
       sample_size.times do
-        ActiveModel::ArraySerializer.new(event_collection, each_serializer: EventSummarySerializer).to_json
+        result = ActiveModel::ArraySerializer.
+          new(event_collection, each_serializer: EventSummarySerializer).
+          as_json
+
+        JsonEncoder.dump(result)
       end
     end
 
     b.report('Presenters Simple: Collection') do
       sample_size.times do
-        event_collection.map { |event| EventSummaryPresenter.new(event).as_json }.to_json
+        result = event_collection.map { |event| EventSummaryPresenter.new(event).as_json }
+        JsonEncoder.dump(result)
       end
     end
 
@@ -138,13 +148,18 @@ module SerializationBenchmark
 
     b.report('AMS Complex: Collection') do
       sample_size.times do
-        ActiveModel::ArraySerializer.new(event_collection, each_serializer: Basketball::EventSerializer).to_json
+        result = ActiveModel::ArraySerializer.
+          new(event_collection, each_serializer: Basketball::EventSerializer).
+          as_json
+
+        JsonEncoder.dump(result)
       end
     end
 
     b.report('Presenters Complex: Collection') do
       sample_size.times do
-        event_collection.map { |event| Basketball::EventPresenter.new(event).as_json }.to_json
+        result = event_collection.map { |event| Basketball::EventPresenter.new(event).as_json }
+        JsonEncoder.dump(result)
       end
     end
   end
