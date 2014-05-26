@@ -28,5 +28,6 @@ PLATFORMS
 
 DEPENDENCIES
   active_model_serializers
+  activesupport
   oj
   rabl
