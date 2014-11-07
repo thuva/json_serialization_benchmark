@@ -1,4 +1,4 @@
-source 'http://rubygems.org'
+source 'https://rubygems.org'
 
 gem 'active_model_serializers'
 gem 'activesupport'
@@ -6,3 +6,4 @@ gem 'oj'
 gem 'rabl'
 gem 'multi_json'
 gem 'ruby-prof'
+gem 'bixby-bench'
