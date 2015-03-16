@@ -1,0 +1,1 @@
+json.partial! 'basketball/events/event', event: event

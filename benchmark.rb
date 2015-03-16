@@ -36,60 +36,72 @@ module SerializationBenchmark
     puts "\n\nMember tests:\n\n"
 
     # ULTRA SIMPLE
-    b.sample("RABL #{Rabl::VERSION} Ultra Simple") do
+    b.sample("RABL #{Rabl::VERSION} Ultra Simple: Member") do
       Rabl.render(team, 'teams/item', view_path: rabl_view_path, format: :json)
     end
 
-    b.sample("AMS #{ActiveModel::Serializer::VERSION} Ultra Simple") do
+    b.sample("AMS #{ActiveModel::Serializer::VERSION} Ultra Simple: Member") do
       JsonEncoder.dump(TeamSerializer.new(team).to_json)
     end
 
-    b.sample("Presenters Ultra Simple") do
+    b.sample("Presenters Ultra Simple: Member") do
       JsonEncoder.dump(TeamPresenter.new(team).to_json)
     end
 
-    b.sample("ApiView Ultra Simple") do
+    b.sample("ApiView Ultra Simple: Member") do
       ApiView::Engine.render(team, nil, :format => "json")
+    end
+
+    b.sample("Jbuilder #{Gem.loaded_specs['jbuilder'].version.to_s} Ultra Simple: Member") do
+      Jbuilder.render('teams/show', locals: { team: team }, layout: false, format: :json)
     end
 
 
     # SIMPLE
     b.divider
 
-    b.report("RABL #{Rabl::VERSION} Simple") do
+    b.report("RABL #{Rabl::VERSION} Simple: Member") do
       Rabl.render(event, 'events/item', view_path: rabl_view_path, format: :json)
     end
 
-    b.report("AMS #{ActiveModel::Serializer::VERSION} Simple") do
+    b.report("AMS #{ActiveModel::Serializer::VERSION} Simple: Member") do
       JsonEncoder.dump(EventSummarySerializer.new(event).to_json)
     end
 
-    b.report("Presenters Simple") do
+    b.report("Presenters Simple: Member") do
       JsonEncoder.dump(EventSummaryPresenter.new(event).to_json)
     end
 
-    b.report("ApiView Simple") do
+    b.report("ApiView Simple: Member") do
       ApiView::Engine.render(event, nil, :format => "json", :use => EventSummaryApiView)
+    end
+
+    b.sample("Jbuilder #{Gem.loaded_specs['jbuilder'].version.to_s} Simple: Member") do
+      Jbuilder.render('events/show', locals: { event: event }, layout: false, format: :json)
     end
 
 
     # COMPLEX
     b.divider
 
-    b.report("RABL #{Rabl::VERSION} Complex") do
+    b.report("RABL #{Rabl::VERSION} Complex: Member") do
       Rabl.render(event, 'basketball/events/show', view_path: rabl_view_path, format: :json)
     end
 
-    b.report("AMS #{ActiveModel::Serializer::VERSION} Complex") do
+    b.report("AMS #{ActiveModel::Serializer::VERSION} Complex: Member") do
       JsonEncoder.dump(Basketball::EventSerializer.new(event).to_json)
     end
 
-    b.report("Presenters Complex") do
+    b.report("Presenters Complex: Member") do
       JsonEncoder.dump(Basketball::EventPresenter.new(event).to_json)
     end
 
-    b.report("ApiView Complex") do
+    b.report("ApiView Complex: Member") do
       ApiView::Engine.render(event, nil, :format => "json", :use => BasketballEventApiView)
+    end
+
+    b.sample("Jbuilder #{Gem.loaded_specs['jbuilder'].version.to_s} Complex: Member") do
+      Jbuilder.render('basketball/events/show', locals: { event: event }, layout: false, format: :json)
     end
   end
 
@@ -121,6 +133,10 @@ module SerializationBenchmark
       ApiView::Engine.render(team_collection, nil, :format => "json")
     end
 
+    b.report("Jbuilder #{Gem.loaded_specs['jbuilder'].version.to_s} Ultra Simple: Collection") do
+      Jbuilder.render('teams/index', locals: { teams: team_collection }, layout: false, format: :json)
+    end
+
 
     # SIMPLE
     b.divider
@@ -146,6 +162,10 @@ module SerializationBenchmark
       ApiView::Engine.render(event_collection, nil, :format => "json", :use => EventSummaryApiView)
     end
 
+    b.report("Jbuilder #{Gem.loaded_specs['jbuilder'].version.to_s} Ultra Simple: Collection") do
+      Jbuilder.render('events/index', locals: { events: event_collection }, layout: false, format: :json)
+    end
+
 
     # COMPLEX
     b.divider
@@ -169,6 +189,10 @@ module SerializationBenchmark
 
     b.report("ApiView Complex: Collection") do
       ApiView::Engine.render(event_collection, nil, :format => "json", :use => BasketballEventApiView)
+    end
+
+    b.report("Jbuilder #{Gem.loaded_specs['jbuilder'].version.to_s} Ultra Simple: Collection") do
+      Jbuilder.render('basketball/events/index', locals: { events: event_collection }, layout: false, format: :json)
     end
 
   end
