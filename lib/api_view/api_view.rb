@@ -1,4 +1,4 @@
-
+require 'find'
 require 'api_view/engine'
 require 'api_view/base'
 
