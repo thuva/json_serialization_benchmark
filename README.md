@@ -39,46 +39,46 @@ Using Ruby version: 2.1.5-p273
 
 Member tests:
 
-                                                real       allocations      memsize
-RABL 0.11.6 Ultra Simple: Member            1.660713                96         6777
-AMS 0.8.1 Ultra Simple: Member              0.256485                26          650
-Presenters Ultra Simple: Member             0.202106                24          650
-ApiView Ultra Simple: Member                0.148704                12          842
-Jbuilder 2.2.11 Ultra Simple: Member        2.673416               181         8640
-------------------------------------------------------------------------------------
-RABL 0.11.6 Simple: Member                 10.926647               532        44049
-AMS 0.8.1 Simple: Member                    1.702242               105         2726
-Presenters Simple: Member                   0.617263                98         2918
-ApiView Simple: Member                      0.362970                15         1862
-Jbuilder 2.2.11 Simple: Member              9.511615               464        27536
-------------------------------------------------------------------------------------
-RABL 0.11.6 Complex: Member                22.996604              1128       101785
-AMS 0.8.1 Complex: Member                   3.018892               209         5851
-Presenters Complex: Member                  1.951265               201         7395
-ApiView Complex: Member                     0.553835                17         3667
-Jbuilder 2.2.11 Complex: Member            16.051573               829        52404
+                                               real       allocations      memsize
+RABL 0.11.6 Ultra Simple: Member           1.790659                97         6969
+AMS 0.9.3 Ultra Simple: Member             0.575352                65         1995
+Presenters Ultra Simple: Member            0.189294                26          930
+ApiView Ultra Simple: Member               0.193702                12          842
+Jbuilder 2.2.11 Ultra Simple: Member       2.935206               181         8640
+-----------------------------------------------------------------------------------
+RABL 0.11.6 Simple: Member                10.916639               533        44241
+AMS 0.9.3 Simple: Member                   1.751082               165         5437
+Presenters Simple: Member                  0.769148               100         3492
+ApiView Simple: Member                     0.309702                15         1862
+Jbuilder 2.2.11 Simple: Member             8.930129               464        27536
+-----------------------------------------------------------------------------------
+RABL 0.11.6 Complex: Member               23.028273              1129       101977
+AMS 0.9.3 Complex: Member                  3.432730               326        11085
+Presenters Complex: Member                 1.822263               203         8454
+ApiView Complex: Member                    0.447377                17         3667
+Jbuilder 2.2.11 Complex: Member           17.234950               829        52404
 
 
 Collection tests:
 
                                                 real       allocations      memsize
-RABL 0.11.6 Ultra Simple: Collection        1.542945              7658       647885
-AMS 0.8.1 Ultra Simple: Collection          0.163877              1914        47786
-Presenters Ultra Simple: Collection         0.129554              3508        67594
-ApiView Ultra Simple: Collection            0.027478               112        46986
-Jbuilder 2.2.11 Ultra Simple: Collection    1.399595              6433       517065
--------------------------------------------------------------------------------------
-RABL 0.11.6 Simple: Collection             10.112471             50962      4364003
-AMS 0.8.1 Simple: Collection                1.445987              9714       236186
-Presenters Simple: Collection               0.756828             16108       380794
-ApiView Simple: Collection                  0.165724               610       148986
-Jbuilder 2.2.11 Ultra Simple: Collection   12.456138             61353      4277513
--------------------------------------------------------------------------------------
-RABL 0.11.6 Complex: Collection            23.481465            109770     10158572
-AMS 0.8.1 Complex: Collection               2.790749             20114       548686
-Presenters Complex: Collection              1.791040             34408       960494
-ApiView Complex: Collection                 0.355639               810       329486
-Jbuilder 2.2.11 Ultra Simple: Collection   14.026351             68659      4765953
+RABL 0.11.6 Ultra Simple: Collection        1.682465              7654       648077
+AMS 0.9.3 Ultra Simple: Collection          0.484903              3630       130055
+Presenters Ultra Simple: Collection         0.017488               303        27594
+ApiView Ultra Simple: Collection            0.035248               112        46986
+Jbuilder 2.2.11 Ultra Simple: Collection    1.575983              6433       517065
+------------------------------------------------------------------------------------
+RABL 0.11.6 Simple: Collection             10.754574             50958      4364195
+AMS 0.9.3 Simple: Collection                1.184653              7530       358455
+Presenters Simple: Collection               0.131570              1603       167994
+ApiView Simple: Collection                  0.130317               610       148986
+Jbuilder 2.2.11 Ultra Simple: Collection   12.160535             61353      4277513
+------------------------------------------------------------------------------------
+RABL 0.11.6 Complex: Collection            21.628849            109766     10158764
+AMS 0.9.3 Complex: Collection               2.110718             14630       742755
+Presenters Complex: Collection              0.324508              2903       483694
+ApiView Complex: Collection                 0.317623               810       329486
+Jbuilder 2.2.11 Ultra Simple: Collection   13.338282             68659      4765953
 ```
 
 ## Extending
