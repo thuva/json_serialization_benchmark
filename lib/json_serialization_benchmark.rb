@@ -13,3 +13,5 @@ require 'models/team'
 
 require 'rabl/init'
 require 'serializers/init'
+require 'api_view/init'
+require 'jbuilder/init'

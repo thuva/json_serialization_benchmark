@@ -1,0 +1,1 @@
+json.array! events, partial: 'basketball/events/event', as: :event
